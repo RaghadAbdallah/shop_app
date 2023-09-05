@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'clean/core/data/data_source/remote_data_source/network_helper.dart';
+import 'clean/features/on_boarding_feature/presentation/page/on_boarding_screen.dart';
 
 void main() {
+  NetworkHelper.init();
   runApp(const MyApp());
 }
 
@@ -9,22 +12,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MyHomePage(),
+    return   MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          elevation: 0,
+          backgroundColor: Colors.transparent
+        )
+      ),
+      home: OnBoardingScreen(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold();
-  }
-}
