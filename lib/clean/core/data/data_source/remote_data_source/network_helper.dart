@@ -7,11 +7,8 @@ class NetworkHelper {
 
   static void init() {
     final BaseOptions options = BaseOptions(
-      baseUrl: 'https://student.valuxapps.com/api/',
-      headers: {
-        'Content-Type':'application/json'
-      }
-    );
+        baseUrl: 'https://student.valuxapps.com/api/',
+        headers: {'Content-Type': 'application/json'});
     dio = Dio(options);
   }
 
@@ -28,9 +25,13 @@ class NetworkHelper {
 
   static Future<dynamic> postData(
       {required String endPoint,
-      String? query,
+      Map<String, dynamic>? query,
       Options? options,
+      String? lang,
       Map<String, dynamic>? header}) async {
+    dio.options = BaseOptions(headers: {
+      'lang': lang,
+    });
     log('url ====> $endPoint');
     final Response<dynamic> response =
         await dio.post(endPoint, options: options, data: query);
