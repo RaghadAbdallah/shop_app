@@ -7,7 +7,10 @@ class NetworkHelper {
 
   static void init() {
     final BaseOptions options = BaseOptions(
-      baseUrl: '',
+      baseUrl: 'https://student.valuxapps.com/api/',
+      headers: {
+        'Content-Type':'application/json'
+      }
     );
     dio = Dio(options);
   }
