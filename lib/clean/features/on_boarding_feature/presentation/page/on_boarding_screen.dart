@@ -41,7 +41,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const LoginScreen()),
+                        builder: (context) =>   LoginScreen()),
                     (route) => false);
               },
               child: const Text(
@@ -133,7 +133,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const LoginScreen()),
+                              builder: (context) =>   LoginScreen()),
                           (route) => false);
                     } else {
                       boardController.nextPage(

@@ -15,9 +15,10 @@ class LoginImplData implements LoginDataSource {
       {required String email, required String password}) async {
     final response = await NetworkHelper.postData(
         endPoint: LOGIN,
-        query: jsonEncode({'Email': email, 'Password': password})).then((value){
+        query: {'email': email, 'password': password}).then((value) {
+      log(value.toString());
     });
-    log('----->$response');
+    log('----->${response}');
     return response;
   }
 }
