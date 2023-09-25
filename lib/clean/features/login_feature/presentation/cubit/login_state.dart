@@ -28,7 +28,14 @@ class LoginError extends LoginState {
   List<Object> get props => [errorMessage];
 }
 
-class PasswordVisibility extends LoginState {
+class IsVisiblePasswordLoading extends LoginState {
+  @override
+  List<Object> get props => [];
+}
+
+
+
+class IsVisiblePasswordLoaded extends LoginState {
   @override
   List<Object> get props => [];
 }

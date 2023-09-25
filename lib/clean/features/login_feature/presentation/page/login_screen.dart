@@ -74,7 +74,9 @@ class LoginScreen extends StatelessWidget {
                       TextFormField(
                         controller: passwordController,
                         keyboardType: TextInputType.emailAddress,
-                        obscureText: context.read<LoginCubit>().obscurePassword,
+                        obscureText:context
+                            .read<LoginCubit>()
+                            .getIsVisiblePassword,
                         validator: (value) {
                           if (value?.isEmpty ?? false) {
                             return 'Your password too short';
@@ -91,12 +93,19 @@ class LoginScreen extends StatelessWidget {
                             ),
                             suffixIcon: IconButton(
                                 onPressed: () async {
-                                  await context
+                                  context
                                       .read<LoginCubit>()
-                                      .changePasswordVisibility();
+                                      .setIsVisiblePassword =
+                                  !context
+                                      .read<LoginCubit>()
+                                      .getIsVisiblePassword;
                                 },
                                 icon: Icon(
-                                    context.read<LoginCubit>().suffixIcon)),
+                                    context
+                                        .read<LoginCubit>()
+                                        .getIsVisiblePassword
+                                        ? Icons.visibility_off_outlined
+                                        : Icons.visibility_outlined)),
                             label: const Text(
                               'Password',
                               style: TextStyle(

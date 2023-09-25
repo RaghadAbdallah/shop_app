@@ -21,14 +21,13 @@ class LoginCubit extends Cubit<LoginState> {
         (success) => emit(LoginLoaded()));
   }
 
-  bool obscurePassword = true;
-  IconData suffixIcon = Icons.visibility_outlined;
+  bool _isVisiblePassword = true;
 
-  changePasswordVisibility() {
-    obscurePassword = !obscurePassword;
-    suffixIcon = obscurePassword
-        ? Icons.visibility_outlined
-        : Icons.visibility_off_outlined;
-    emit(PasswordVisibility());
+  bool get getIsVisiblePassword => _isVisiblePassword;
+
+  set setIsVisiblePassword(bool value) {
+    emit(IsVisiblePasswordLoading());
+    _isVisiblePassword = value;
+    emit(IsVisiblePasswordLoaded());
   }
 }
