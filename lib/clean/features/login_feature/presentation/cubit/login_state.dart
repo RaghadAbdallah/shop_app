@@ -15,8 +15,10 @@ class LoginLoading extends LoginState {
 }
 
 class LoginLoaded extends LoginState {
+  final LoginModel model;
+  const LoginLoaded({required this.model});
   @override
-  List<Object> get props => [];
+  List<Object> get props => [model];
 }
 
 class LoginError extends LoginState {

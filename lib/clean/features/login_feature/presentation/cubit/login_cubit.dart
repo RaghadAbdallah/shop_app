@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shop_app/clean/features/login_feature/domain/usecase/login_usecase.dart';
 
+import '../../data/model/login_model.dart';
+
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
@@ -18,7 +20,7 @@ class LoginCubit extends Cubit<LoginState> {
         await loginUseCase.call(LoginParams(email: email, password: password));
     eitherInput.fold(
         (failure) => emit(LoginError(errorMessage: failure.message)),
-        (success) => emit(LoginLoaded()));
+        (success) => emit(LoginLoaded(model: success)));
   }
 
   bool _isVisiblePassword = true;
@@ -30,4 +32,5 @@ class LoginCubit extends Cubit<LoginState> {
     _isVisiblePassword = value;
     emit(IsVisiblePasswordLoaded());
   }
+
 }

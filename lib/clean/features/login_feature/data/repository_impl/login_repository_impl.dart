@@ -4,6 +4,7 @@ import 'package:shop_app/clean/features/login_feature/data/datasource/login_remo
 import 'package:shop_app/clean/features/login_feature/domain/repository/login_repository.dart';
 
 import '../../../../core/domain/error/exceptions/exceptions.dart';
+import '../model/login_model.dart';
 
 class LoginRepositoryImpl implements LoginRepository {
   const LoginRepositoryImpl({required this.loginDataSource});
@@ -11,11 +12,11 @@ class LoginRepositoryImpl implements LoginRepository {
   final LoginDataSource loginDataSource;
 
   @override
-  Future<Either<Failure, void>> getLoginData(
+  Future<Either<Failure, LoginModel>> getLoginData(
       {required String email, required String password}) async {
     try {
       return Right(
-          loginDataSource.getLoginInfo(email: email, password: password));
+          await loginDataSource.getLoginInfo(email: email, password: password));
     } on ServerException {
       return const Left(ServerFailure(message: ''));
     }

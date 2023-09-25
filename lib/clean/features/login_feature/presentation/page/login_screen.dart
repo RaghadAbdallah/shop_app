@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/clean/features/login_feature/presentation/cubit/login_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +13,20 @@ class LoginScreen extends StatelessWidget {
     var passwordController = TextEditingController();
 
     return BlocConsumer<LoginCubit, LoginState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is LoginLoaded) {
+          if (state.model.status == false) {
+            Fluttertoast.showToast(
+                msg:state.model.message??'',
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 5,
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                fontSize: 16.0);
+          }
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(),
@@ -74,9 +86,8 @@ class LoginScreen extends StatelessWidget {
                       TextFormField(
                         controller: passwordController,
                         keyboardType: TextInputType.emailAddress,
-                        obscureText:context
-                            .read<LoginCubit>()
-                            .getIsVisiblePassword,
+                        obscureText:
+                            context.read<LoginCubit>().getIsVisiblePassword,
                         validator: (value) {
                           if (value?.isEmpty ?? false) {
                             return 'Your password too short';
@@ -94,18 +105,17 @@ class LoginScreen extends StatelessWidget {
                             suffixIcon: IconButton(
                                 onPressed: () async {
                                   context
-                                      .read<LoginCubit>()
-                                      .setIsVisiblePassword =
-                                  !context
-                                      .read<LoginCubit>()
-                                      .getIsVisiblePassword;
+                                          .read<LoginCubit>()
+                                          .setIsVisiblePassword =
+                                      !context
+                                          .read<LoginCubit>()
+                                          .getIsVisiblePassword;
                                 },
-                                icon: Icon(
-                                    context
+                                icon: Icon(context
                                         .read<LoginCubit>()
                                         .getIsVisiblePassword
-                                        ? Icons.visibility_off_outlined
-                                        : Icons.visibility_outlined)),
+                                    ? Icons.visibility_off_outlined
+                                    : Icons.visibility_outlined)),
                             label: const Text(
                               'Password',
                               style: TextStyle(
