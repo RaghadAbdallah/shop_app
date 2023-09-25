@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:shop_app/clean/features/login_feature/presentation/cubit/login_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -72,6 +74,7 @@ class LoginScreen extends StatelessWidget {
                       TextFormField(
                         controller: passwordController,
                         keyboardType: TextInputType.emailAddress,
+                        obscureText: context.read<LoginCubit>().obscurePassword,
                         validator: (value) {
                           if (value?.isEmpty ?? false) {
                             return 'Your password too short';
@@ -86,9 +89,14 @@ class LoginScreen extends StatelessWidget {
                             prefixIcon: const Icon(
                               Icons.lock_outline,
                             ),
-                            suffixIcon: const Icon(
-                              Icons.visibility_outlined,
-                            ),
+                            suffixIcon: IconButton(
+                                onPressed: () async {
+                                  await context
+                                      .read<LoginCubit>()
+                                      .changePasswordVisibility();
+                                },
+                                icon: Icon(
+                                    context.read<LoginCubit>().suffixIcon)),
                             label: const Text(
                               'Password',
                               style: TextStyle(
@@ -104,7 +112,7 @@ class LoginScreen extends StatelessWidget {
                           height: 50,
                           child: ElevatedButton(
                               onPressed: () {
-                                if (formKey.currentState?.validate()?? false) {
+                                if (formKey.currentState?.validate() ?? false) {
                                   context.read<LoginCubit>().getLoginSuccess(
                                       email: emailController.text,
                                       password: passwordController.text);

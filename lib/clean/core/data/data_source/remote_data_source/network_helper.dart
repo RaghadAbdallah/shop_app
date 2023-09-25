@@ -15,7 +15,13 @@ class NetworkHelper {
   static Future<List<dynamic>> getData(
       {required String endPoint,
       Options? options,
-      Map<String, dynamic>? query}) async {
+      Map<String, dynamic>? query,
+        String? lang,
+        String? token,}) async {
+    dio.options.headers ={
+      'lang': lang,
+      'Authorization': token,
+    };
     log('url ====> $endPoint');
     final Response<dynamic> response =
         await dio.get(endPoint, options: options, queryParameters: query);
@@ -28,10 +34,12 @@ class NetworkHelper {
       Map<String, dynamic>? query,
       Options? options,
       String? lang,
+      String? token,
       Map<String, dynamic>? header}) async {
-    dio.options = BaseOptions(headers: {
+    dio.options.headers ={
       'lang': lang,
-    });
+      'Authorization': token,
+    };
     log('url ====> $endPoint');
     final Response<dynamic> response =
         await dio.post(endPoint, options: options, data: query);
